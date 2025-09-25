@@ -194,8 +194,13 @@ commands = [["uv", "lock", {replace = "posargs", default = ["-U"], extend = true
 enable = "cpython-freethreading"
 build-frontend = "build[uv]"
 
+[[tool.cibuildwheel.overrides]]
+select = "*-musllinux_riscv64"
+# uv is not available
+build-frontend = "build"
+
 [tool.cibuildwheel.linux]
-archs = ["x86_64", "aarch64"]
+archs = ["x86_64", "aarch64", "riscv64"]
 
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"]

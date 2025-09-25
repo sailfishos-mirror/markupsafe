@@ -9,6 +9,7 @@ Unreleased
     :issue:`494`
 -   Build Windows ARM64 wheels. :issue:`485`
 -   Build Python 3.14 wheels. :issue:`503`
+-   Build riscv64 wheels. :issue:`505`
 
 
 Version 3.0.2
