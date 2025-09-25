@@ -188,3 +188,16 @@ dependency_groups = []
 no_default_groups = true
 skip_install = true
 commands = [["uv", "lock", {replace = "posargs", default = ["-U"], extend = true}]]
+
+[tool.cibuildwheel]
+enable = "cpython-freethreading"
+build-frontend = "build[uv]"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["auto", "ARM64"]
