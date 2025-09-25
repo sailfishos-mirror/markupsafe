@@ -8,6 +8,7 @@ Unreleased
 -   Adopt multi-phase initialisation (:pep:`489`) for the C extension.
     :issue:`494`
 -   Build Windows ARM64 wheels. :issue:`485`
+-   Build Python 3.14 wheels. :issue:`503`
 
 
 Version 3.0.2
