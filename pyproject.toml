@@ -48,6 +48,7 @@ pre-commit = [
 ]
 tests = [
     "pytest",
+    "pytest-run-parallel; python_full_version >= '3.13'",
 ]
 typing = [
     "mypy",
@@ -67,7 +68,10 @@ testpaths = ["tests"]
 filterwarnings = [
     "error",
 ]
-
+markers = [
+    # Needed when pytest-run-parallel is not installed
+    "thread_unsafe: mark test as not safe to run in multiple threads",
+]
 [tool.coverage.run]
 branch = true
 source = ["markupsafe", "tests"]
@@ -124,6 +128,7 @@ tag-only = [
 
 [tool.tox]
 env_list = [
+    "py3.14", "py3.14t", "parallel",
     "py3.13", "py3.13t", "py3.12", "py3.11", "py3.10",
     "pypy3.11",
     "style",
@@ -141,6 +146,15 @@ use_frozen_constraints = true
 dependency_groups = ["tests"]
 commands = [[
     "pytest", "-v", "--tb=short", "--basetemp={env_tmp_dir}",
+    {replace = "posargs", default = [], extend = true},
+]]
+
+[tool.tox.env.parallel]
+description = "check for free threading issues"
+base_python = ["3.14t"]
+commands = [[
+    "pytest", "-v", "--tb=short", "--basetemp=env_tmp_dir",
+    "--parallel-threads=8",
     {replace = "posargs", default = [], extend = true},
 ]]
 
@@ -188,3 +202,21 @@ dependency_groups = []
 no_default_groups = true
 skip_install = true
 commands = [["uv", "lock", {replace = "posargs", default = ["-U"], extend = true}]]
+
+[tool.cibuildwheel]
+enable = "cpython-freethreading"
+build-frontend = "build[uv]"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-musllinux_riscv64"
+# uv is not available
+build-frontend = "build"
+
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64", "riscv64"]
+
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64"]
+
+[tool.cibuildwheel.windows]
+archs = ["auto", "ARM64"]

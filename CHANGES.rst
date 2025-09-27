@@ -10,13 +10,15 @@ Unreleased
 Version 3.0.3
 -------------
 
-Unreleased
+Released 2025-09-27
 
 -   ``__version__`` raises ``DeprecationWarning`` instead of ``UserWarning``.
     :issue:`487`
 -   Adopt multi-phase initialisation (:pep:`489`) for the C extension.
     :issue:`494`
 -   Build Windows ARM64 wheels. :issue:`485`
+-   Build Python 3.14 wheels. :issue:`503`
+-   Build riscv64 wheels. :issue:`505`
 
 
 Version 3.0.2
