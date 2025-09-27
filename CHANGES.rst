@@ -1,7 +1,7 @@
 Version 3.0.3
 -------------
 
-Unreleased
+Released 2025-09-27
 
 -   ``__version__`` raises ``DeprecationWarning`` instead of ``UserWarning``.
     :issue:`487`
